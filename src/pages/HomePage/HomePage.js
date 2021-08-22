@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Post from '../../components/Post'
+import Post from '../ListPage/Post'
 import { getPosts } from '../../WebAPI'
 
 const Root = styled.div`

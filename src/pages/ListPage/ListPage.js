@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Post from '../../components/Post'
+import Post from './Post'
 import { getListPosts, getPosts } from '../../WebAPI'
 import Paginator from './Paginator'
 
-const Root = styled.div`
-  width: 50rem;
-  margin: 0 auto;
+const ListPageContainer = styled.div``
+
+const PostsContainer = styled.div`
+  padding: 3rem 0;
 `
 
 const ListPage = () => {
@@ -27,10 +28,12 @@ const ListPage = () => {
   }, [page])
 
   return (
-    <Root>
-      {posts.map((post) => <Post key={post.id} post={post} />)}
+    <ListPageContainer>
+      <PostsContainer>
+        {posts.map((post) => <Post key={post.id} post={post} />)}
+      </PostsContainer>
       <Paginator page={page} setPage={setPage} lastPage={lastPage} />
-    </Root>
+    </ListPageContainer>
   )
 }
 

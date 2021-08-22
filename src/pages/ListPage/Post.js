@@ -3,21 +3,31 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 const PostContainer = styled.article`
-  border-bottom: 1px solid rgba(0, 12, 34, 0.2);
-  padding: 1rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
+  gap: 1rem;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    border-left-color: black;
+  }
 `
 
 const PostTitle = styled(Link)`
-  font-size: 1.5rem;
   color: #333;
+  border-bottom: 1px dotted transparent;
+
+  &:hover {
+    border-bottom-color: darkgray;
+  }
 `
 
 const PostDate = styled.p`
   flex-shrink: 0;
   color: #757575;
+  font-size: 0.9rem;
+  font-family: monospace;
 `
 
 const Post = ({ post }) => {
@@ -25,8 +35,8 @@ const Post = ({ post }) => {
 
   return (
     <PostContainer>
+      <PostDate>{new Date(createdAt).toLocaleDateString()}</PostDate>
       <PostTitle to={`/posts/${post.id}`}>{title}</PostTitle>
-      <PostDate>{new Date(createdAt).toLocaleString()}</PostDate>
     </PostContainer>
   )
 }

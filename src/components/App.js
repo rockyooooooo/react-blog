@@ -21,6 +21,11 @@ const Root = styled.div`
  padding-top: 4rem;
 `
 
+const Container = styled.div`
+  width: 50rem;
+  margin: 0 auto;
+`
+
 function App() {
   const [user, setUser] = useState(null)
 
@@ -43,29 +48,31 @@ function App() {
       <Root>
         <Router>
           <Header />
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/list">
-              <ListPage />
-            </Route>
-            <Route path="/new">
-              <NewPostPage />
-            </Route>
-            <Route path="/about">
-              <AboutPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/register">
-              <RegisterPage />
-            </Route>
-            <Route path="/posts/:id">
-              <PostPage />
-            </Route>
-          </Switch>
+          <Container>
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/list">
+                <ListPage />
+              </Route>
+              <Route path="/new">
+                <NewPostPage />
+              </Route>
+              <Route path="/about">
+                <AboutPage />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/register">
+                <RegisterPage />
+              </Route>
+              <Route path="/posts/:id">
+                <PostPage />
+              </Route>
+            </Switch>
+          </Container>
         </Router>
       </Root>
     </AuthContext.Provider>
