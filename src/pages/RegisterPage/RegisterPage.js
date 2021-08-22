@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { login, getMe } from '../../WebAPI'
+import { register, getMe } from '../../WebAPI'
 import { setAuthToken } from '../../utils'
 import { AuthContext } from '../../contexts'
 
@@ -9,10 +9,11 @@ const ErrorMessage = styled.h2`
   color: red;
 `
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const { setUser } = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [nickname, setNickname] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const history = useHistory()
 
@@ -20,9 +21,9 @@ const LoginPage = () => {
     e.preventDefault()
     setErrorMessage(null)
 
-    const loginResponse = await login(username, password)
-    const {  message, token } = loginResponse
-    if (!loginResponse.ok) {
+    const registerResponse = await register({username, password, nickname})
+    const {  message, token } = registerResponse
+    if (!registerResponse.ok) {
       setErrorMessage(message)
       return
     }
@@ -41,7 +42,7 @@ const LoginPage = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>登入</h2>
+      <h2>註冊</h2>
       <label>
         username: 
         <input value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -50,10 +51,14 @@ const LoginPage = () => {
         password: 
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button>登入</button>
+      <label>
+        nickname: 
+        <input value={nickname} onChange={(e) => setNickname(e.target.value)} />
+      </label>
+      <button>註冊</button>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </form>
   )
 }
 
-export default LoginPage;
+export default RegisterPage;

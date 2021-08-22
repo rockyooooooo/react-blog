@@ -39,8 +39,9 @@ const Nav = styled(Link)`
   height: 100%;
   width: 6rem;
   cursor: pointer;
+  color: inherit;
 
-  background: ${(props) => props.$active ? 'rgba(0, 0, 0, 0.3)' : ''}
+  background: ${(props) => props.$active ? '#75757575' : ''}
 `
 
 const Header = () => {
@@ -59,17 +60,22 @@ const Header = () => {
   return (
     <HeaderContainer>
       <LeftContainer>
-        <Brand>我的第一個部落格</Brand>
+        <Brand>Large</Brand>
         <NavbarList>
           <Nav to="/" $active={location.pathname === '/'}>首頁</Nav>
+          <Nav to="/list" $active={location.pathname === '/list'}>文章列表</Nav>
           {user && <Nav to="/new" $active={location.pathname === '/new'}>發布文章</Nav>}
+          <Nav to="/about" $active={location.pathname === '/about'}>About</Nav>
         </NavbarList>
       </LeftContainer>
       <NavbarList>
         {
           user ?
-          <Nav to="/" onClick={handleLogout}>登出</Nav> :
-          <Nav to="/login" $active={location.pathname === '/login'}>登入</Nav>
+          <Nav to="/" onClick={handleLogout}>登出</Nav> : 
+          (<>
+            <Nav to="/register" $active={location.pathname === '/register'}>註冊</Nav>
+            <Nav to="/login" $active={location.pathname === '/login'}>登入</Nav>
+          </>)
         }
       </NavbarList>
     </HeaderContainer>

@@ -26,9 +26,14 @@ const Info = styled.div`
 
 const Author = styled.span``
 
-const Time = styled.span``
+const Time = styled.span`
+  color: #757575;
+`
 
-const Content = styled.main``
+const Content = styled.main`
+  white-space: pre-wrap;
+  margin-bottom: 4rem;
+`
 
 const PostPage = () => {
   const { id } = useParams()
@@ -51,13 +56,11 @@ const PostPage = () => {
   return (
     <>
       {post && user && <PostContainer>
-          <div>
-            <Title>{post.title}</Title>
-            <Info>
-              <Author>{user && user.nickname}</Author>
-              <Time>{new Date(post.createdAt).toLocaleString()}</Time>
-            </Info>
-          </div>
+          <Title>{post.title}</Title>
+          <Info>
+            <Author>{user && user.nickname}</Author>
+            <Time>{new Date(post.createdAt).toLocaleString()}</Time>
+          </Info>
           <Content>{post.body}</Content>
       </PostContainer>}
     </>

@@ -9,9 +9,13 @@ import Header from './Header'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import PostPage from '../pages/PostPage'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
+import NewPostPage from '../pages/NewPostPage'
+import ListPage from '../pages/ListPage'
 import { AuthContext } from '../contexts'
 import { getMe } from '../WebAPI'
 import { getAuthToken } from '../utils'
+import AboutPage from '../pages/AboutPage'
 
 const Root = styled.div`
  padding-top: 4rem;
@@ -43,8 +47,20 @@ function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
+            <Route exact path="/list">
+              <ListPage />
+            </Route>
+            <Route path="/new">
+              <NewPostPage />
+            </Route>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
             </Route>
             <Route path="/posts/:id">
               <PostPage />
