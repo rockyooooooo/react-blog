@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom'
 import Header from './Header'
+import Footer from './Footer'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
 import PostPage from '../pages/PostPage'
@@ -18,12 +19,13 @@ import { getAuthToken } from '../utils'
 import AboutPage from '../pages/AboutPage'
 
 const Root = styled.div`
- padding-top: 4rem;
+ padding-top: 53px;
 `
 
 const Container = styled.div`
   width: 50rem;
   margin: 0 auto;
+  padding-top: 3rem;
 `
 
 function App() {
@@ -72,6 +74,7 @@ function App() {
                 <PostPage />
               </Route>
             </Switch>
+            <Footer />
           </Container>
         </Router>
       </Root>

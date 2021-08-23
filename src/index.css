@@ -10,8 +10,10 @@
 
 body {
   color: #363636;
+  line-height: 1.5;
 }
 
 a {
   text-decoration: none;
+  color: #3273dc;
 }

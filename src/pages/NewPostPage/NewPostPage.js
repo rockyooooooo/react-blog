@@ -1,35 +1,28 @@
 import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
+import { Form, Button, Input } from "../../components/utils/Form"
+import { grayLine } from "../../constants"
 import { newPost } from "../../WebAPI"
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+const PostForm = styled(Form)`
   gap: 1rem;
-  height: calc(100vh - 4rem);
-  width: 50vw;
-  margin: 4rem auto;
-`
-
-const Title = styled.input`
-  padding: 0.5rem;
-  font-family: inherit;
-  font-size: 1.25rem;
+  width: 50rem;
 `
 
 const TextArea = styled.textarea`
-  resize: vertical;
+  resize: none;
   padding: 0.5rem;
   font-family: inherit;
   font-size: 1rem;
-  height: 10rem;
-`
+  height: 25rem;
+  border-color: ${grayLine};
+  outline: none;
+  transition: border-color 300ms ease;
 
-const Button = styled.button`
-  font-size: 1rem;
-  padding: 0.5rem;
-  margin-top: 1rem;
+  &:focus {
+    border: 1px solid black;
+  }
 `
 
 const NewPostPage = () => {
@@ -52,13 +45,13 @@ const NewPostPage = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <PostForm onSubmit={handleSubmit}>
       <label htmlFor="title">文章標題：</label>
-      <Title type="text" id="title" name="content" value={title} onChange={handleInputChange} />
+      <Input type="text" id="title" name="content" value={title} onChange={handleInputChange} />
       <label htmlFor="content">文章內容：</label>
       <TextArea id="content" name="content" value={content} onChange={handleTextareaChange} />
-      <Button>送出文章</Button>
-    </Form>
+      <Button >送出文章</Button>
+    </PostForm>
   )
 }
 

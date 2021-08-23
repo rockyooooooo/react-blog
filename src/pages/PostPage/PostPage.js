@@ -1,6 +1,8 @@
+import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { blackDefault, blackTitle } from '../../constants'
 import { getPost, getUser } from '../../WebAPI'
 
 const PostContainer = styled.div`
@@ -9,30 +11,31 @@ const PostContainer = styled.div`
 `
 
 const Title = styled.h2`
-  border-bottom: 1px solid #333;
-  margin: 0;
-  padding: 1rem 0;
-  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
   font-weight: 400;
-  line-height: 3.75rem;
-  color: #292929;
+  line-height: 1.125;
+  color: ${blackTitle};
 `
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem 0 ;
+  margin-bottom: 0.75rem;
 `
 
 const Author = styled.span``
 
 const Time = styled.span`
-  color: #757575;
+  color: ${blackDefault};
+  font-size: 0.9rem;
 `
 
 const Content = styled.main`
   white-space: pre-wrap;
   margin-bottom: 4rem;
+  color: ${blackDefault};
+  font-size: 1.1rem;
 `
 
 const PostPage = () => {
@@ -59,7 +62,7 @@ const PostPage = () => {
           <Title>{post.title}</Title>
           <Info>
             <Author>{user && user.nickname}</Author>
-            <Time>{new Date(post.createdAt).toLocaleString()}</Time>
+            <Time>{moment(post.createdAt).format('YYYY年MM月DD日')}</Time>
           </Info>
           <Content>{post.body}</Content>
       </PostContainer>}

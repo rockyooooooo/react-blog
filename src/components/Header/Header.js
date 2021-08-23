@@ -81,7 +81,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderInnerContainer>
         <LeftContainer>
-          <Brand to="/" exact>Large</Brand>
+          <Brand to="/">Large</Brand>
           <NavbarList>
             <Nav to="/list" activeStyle={activeStyle}>文章列表</Nav>
             {user && <Nav to="/new" activeStyle={activeStyle}>發布文章</Nav>}

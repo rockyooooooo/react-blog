@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
-const PostContainer = styled.article`
+const PostContainer = styled.div`
   padding: 0.5rem 1.5rem;
   display: flex;
   align-items: flex-end;
@@ -17,13 +18,14 @@ const PostContainer = styled.article`
 const PostTitle = styled(Link)`
   color: #333;
   border-bottom: 1px dotted transparent;
+  line-height: 1.125;
 
   &:hover {
     border-bottom-color: darkgray;
   }
 `
 
-const PostDate = styled.p`
+const PostDate = styled.time`
   flex-shrink: 0;
   color: #757575;
   font-size: 0.9rem;
@@ -35,7 +37,8 @@ const Post = ({ post }) => {
 
   return (
     <PostContainer>
-      <PostDate>{new Date(createdAt).toLocaleDateString()}</PostDate>
+      <PostDate>{moment(createdAt).format("MM月DD日")}</PostDate>
+      {/* <PostDate>{new Date(createdAt).toLocaleDateString()}</PostDate> */}
       <PostTitle to={`/posts/${post.id}`}>{title}</PostTitle>
     </PostContainer>
   )

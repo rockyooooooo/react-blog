@@ -1,13 +1,9 @@
 import { useContext, useState } from 'react'
-import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { register, getMe } from '../../WebAPI'
 import { setAuthToken } from '../../utils'
 import { AuthContext } from '../../contexts'
-
-const ErrorMessage = styled.h2`
-  color: red;
-`
+import { Button, ErrorMessage, Form, Input } from '../../components/utils/Form'
 
 const RegisterPage = () => {
   const { setUser } = useContext(AuthContext)
@@ -41,23 +37,17 @@ const RegisterPage = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <h2>註冊</h2>
-      <label>
-        username: 
-        <input value={username} onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <label>
-        password: 
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <label>
-        nickname: 
-        <input value={nickname} onChange={(e) => setNickname(e.target.value)} />
-      </label>
-      <button>註冊</button>
+      <label htmlFor="username">Username:</label>
+      <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+      <label htmlFor="password">Password:</label>
+      <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <label htmlFor="nickname">Nickname:</label>
+      <Input id="nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
+      <Button>註冊</Button>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </form>
+    </Form>
   )
 }
 
