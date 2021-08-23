@@ -6,8 +6,9 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   border-top: 1px solid ${grayLine};
   padding-top: 2rem;
-  margin: 5rem 0;
+  margin: 5rem auto;
   font-size: 0.9rem;
+  width: 50rem;
 `
 
 const Footer = () => {

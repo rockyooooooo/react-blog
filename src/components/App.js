@@ -17,6 +17,7 @@ import { AuthContext } from '../contexts'
 import { getMe } from '../WebAPI'
 import { getAuthToken } from '../utils'
 import AboutPage from '../pages/AboutPage'
+import LoadingPage from '../pages/LoadingPage'
 
 const Root = styled.div`
  padding-top: 53px;
@@ -30,11 +31,13 @@ const Container = styled.div`
 
 function App() {
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // todo: 有 token 才 call api
     const token = getAuthToken()
     if (!token) return
+
     getMe().then((response) => {
       const { ok, data } = response
       if (!ok) {
@@ -50,13 +53,14 @@ function App() {
       <Root>
         <Router>
           <Header />
+          {isLoading && <LoadingPage />}
           <Container>
             <Switch>
               <Route exact path="/">
-                <HomePage />
+                <HomePage setIsLoading={setIsLoading} />
               </Route>
               <Route exact path="/list">
-                <ListPage />
+                <ListPage setIsLoading={setIsLoading} />
               </Route>
               <Route path="/new">
                 <NewPostPage />
@@ -71,11 +75,11 @@ function App() {
                 <RegisterPage />
               </Route>
               <Route path="/posts/:id">
-                <PostPage />
+                <PostPage setIsLoading={setIsLoading} />
               </Route>
             </Switch>
-            <Footer />
           </Container>
+          {!isLoading && <Footer isLoading={isLoading} />}
         </Router>
       </Root>
     </AuthContext.Provider>

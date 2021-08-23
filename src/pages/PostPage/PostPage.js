@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { blackDefault, blackTitle } from '../../constants'
 import { getPost, getUser } from '../../WebAPI'
@@ -38,12 +39,13 @@ const Content = styled.main`
   font-size: 1.1rem;
 `
 
-const PostPage = () => {
+const PostPage = ({ setIsLoading }) => {
   const { id } = useParams()
   const [post, setPost] = useState(null)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
+    setIsLoading(true)
     getPost(id).then((data) => {
       setPost(data)
     })
@@ -54,6 +56,7 @@ const PostPage = () => {
     getUser(post.userId).then((data) => {
       setUser(data)
     })
+    setIsLoading(false)
   }, [post])
 
   return (
@@ -68,6 +71,10 @@ const PostPage = () => {
       </PostContainer>}
     </>
   )
+}
+
+PostPage.propTypes = {
+  setIsLoading: PropTypes.func
 }
 
 export default PostPage

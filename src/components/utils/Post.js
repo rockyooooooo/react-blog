@@ -38,7 +38,6 @@ const Post = ({ post }) => {
   return (
     <PostContainer>
       <PostDate>{moment(createdAt).format("MM月DD日")}</PostDate>
-      {/* <PostDate>{new Date(createdAt).toLocaleDateString()}</PostDate> */}
       <PostTitle to={`/posts/${post.id}`}>{title}</PostTitle>
     </PostContainer>
   )
