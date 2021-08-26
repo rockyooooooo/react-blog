@@ -158,7 +158,7 @@ const Header = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false)
 
   const handleLogout = () => {
-    setAuthToken(null)
+    setAuthToken('')
     setUser(null)
     setIsHamburgerOpen(false)
     if (location.pathname !== '/') {

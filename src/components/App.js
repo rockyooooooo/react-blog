@@ -38,8 +38,7 @@ function App() {
 
   useEffect(() => {
     const token = getAuthToken()
-    // token 明明是 null 卻要兩個 !! 才會變成 true？
-    if (!!token) return
+    if (!token) return
 
     getMe().then((response) => {
       const { ok, data } = response
