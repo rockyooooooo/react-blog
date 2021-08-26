@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { login, getMe } from '../../WebAPI'
 import { setAuthToken } from '../../utils'
 import { AuthContext } from '../../contexts'
 import { Button, ErrorMessage, Form, Input } from '../../components/utils/Form'
 
-const LoginPage = () => {
+const LoginPage = ({ setIsLoading }) => {
   const { setUser } = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -16,10 +17,12 @@ const LoginPage = () => {
     e.preventDefault()
     setErrorMessage(null)
 
+    setIsLoading(true)
     const loginResponse = await login(username, password)
     const {  message, token } = loginResponse
     if (!loginResponse.ok) {
       setErrorMessage(message)
+      setIsLoading(false)
       return
     }
     setAuthToken(token)
@@ -29,9 +32,11 @@ const LoginPage = () => {
     if (!getMeResponse.ok) {
       setAuthToken(null)
       setErrorMessage(data)
+      setIsLoading(false)
       return
     }
     setUser(data)
+    setIsLoading(false)
     history.push('/')
   }
 
@@ -46,6 +51,10 @@ const LoginPage = () => {
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Form>
   )
+}
+
+LoginPage.propTypes = {
+  setIsLoading: PropTypes.func
 }
 
 export default LoginPage;

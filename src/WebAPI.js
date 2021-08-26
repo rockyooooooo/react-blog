@@ -60,25 +60,6 @@ export const login = async (username, password) => {
   return data
 }
 
-// export const getMe = async () => {
-//   const token = getAuthToken()
-//   return fetch(`${BASE_URL}/m1e`, {
-//     headers: {
-//       'authorization': `Bearer ${token}`
-//     }
-//   })
-//     .then((res) => {
-//       if (!res.ok) throw new Error('Network response was not ok in getMe.')
-//       return res.json()
-//     })
-//     .catch((error) => {
-//       return {
-//         ok: 0,
-//         data: error
-//       }
-//     })
-// }
-
 export const getMe = async () => {
   const token = getAuthToken()
   try {

@@ -13,6 +13,14 @@ const PostContainer = styled.div`
   &:hover {
     border-left-color: black;
   }
+
+  @media screen and (max-width: 1024px) {
+    & {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+  }
 `
 
 const PostTitle = styled(Link)`

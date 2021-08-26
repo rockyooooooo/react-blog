@@ -5,7 +5,13 @@ import Post from '../../components/utils/Post'
 import { getPosts } from '../../WebAPI'
 import { grayLine } from '../../constants'
 
-const HomePageContainer = styled.div``
+const HomePageContainer = styled.div`
+  @media screen and (max-width: 1024px) {
+    & {
+      width: 100%;
+    }
+  }
+`
 
 const YearContainer = styled.div`
   margin-bottom: 3rem;

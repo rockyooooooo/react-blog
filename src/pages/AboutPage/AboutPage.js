@@ -26,7 +26,7 @@ const AboutPage = () => {
       <Description>
         一個想假裝自己是 Medium
         <br />
-        但其實是模仿 <a href="https://blog.huli.tw/">Huli's Blog</a> 的部落格
+        但其實是模仿 <a href="https://blog.huli.tw/" rel="noopener noreferrer" target="_blank">Huli's Blog</a> 的部落格
       </Description>
     </Container>
   )

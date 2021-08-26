@@ -24,9 +24,12 @@ const Root = styled.div`
 `
 
 const Container = styled.div`
-  width: 50rem;
   margin: 0 auto;
-  padding-top: 3rem;
+  padding: 3rem 1.5rem 0;
+
+  @media screen and (min-width: 1024px) {
+    width: 50rem;
+  }
 `
 
 function App() {
@@ -34,9 +37,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // todo: 有 token 才 call api
     const token = getAuthToken()
-    if (!token) return
+    // token 明明是 null 卻要兩個 !! 才會變成 true？
+    if (!!token) return
 
     getMe().then((response) => {
       const { ok, data } = response
@@ -59,7 +62,7 @@ function App() {
               <Route exact path="/">
                 <HomePage setIsLoading={setIsLoading} />
               </Route>
-              <Route exact path="/list">
+              <Route path="/list">
                 <ListPage setIsLoading={setIsLoading} />
               </Route>
               <Route path="/new">
@@ -69,10 +72,10 @@ function App() {
                 <AboutPage />
               </Route>
               <Route path="/login">
-                <LoginPage />
+                <LoginPage setIsLoading={setIsLoading} />
               </Route>
               <Route path="/register">
-                <RegisterPage />
+                <RegisterPage setIsLoading={setIsLoading} />
               </Route>
               <Route path="/posts/:id">
                 <PostPage setIsLoading={setIsLoading} />

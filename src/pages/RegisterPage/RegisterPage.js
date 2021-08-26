@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { register, getMe } from '../../WebAPI'
 import { setAuthToken } from '../../utils'
 import { AuthContext } from '../../contexts'
 import { Button, ErrorMessage, Form, Input } from '../../components/utils/Form'
 
-const RegisterPage = () => {
+const RegisterPage = ({ setIsLoading }) => {
   const { setUser } = useContext(AuthContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -17,10 +18,12 @@ const RegisterPage = () => {
     e.preventDefault()
     setErrorMessage(null)
 
+    setIsLoading(true)
     const registerResponse = await register({username, password, nickname})
     const {  message, token } = registerResponse
     if (!registerResponse.ok) {
       setErrorMessage(message)
+      setIsLoading(false)
       return
     }
     setAuthToken(token)
@@ -30,9 +33,11 @@ const RegisterPage = () => {
     if (!getMeResponse.ok) {
       setAuthToken(null)
       setErrorMessage(data)
+      setIsLoading(false)
       return
     }
     setUser(data)
+    setIsLoading(false)
     history.push('/')
   }
 
@@ -49,6 +54,10 @@ const RegisterPage = () => {
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Form>
   )
+}
+
+RegisterPage.propTypes = {
+  setIsLoading: PropTypes.func
 }
 
 export default RegisterPage;

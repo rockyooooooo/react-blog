@@ -7,8 +7,11 @@ import { blackDefault, blackTitle } from '../../constants'
 import { getPost, getUser } from '../../WebAPI'
 
 const PostContainer = styled.div`
-  width: 42.5rem;
   margin: 0 auto;
+  
+  @media screen and (min-width: 1024px) {
+    width: 50rem;
+  }
 `
 
 const Title = styled.h2`
@@ -25,7 +28,9 @@ const Info = styled.div`
   margin-bottom: 0.75rem;
 `
 
-const Author = styled.span``
+const Author = styled.span`
+  font-size: 1rem;
+`
 
 const Time = styled.span`
   color: ${blackDefault};
