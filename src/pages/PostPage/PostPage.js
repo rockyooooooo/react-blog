@@ -20,6 +20,8 @@ const Title = styled.h2`
   font-weight: 400;
   line-height: 1.125;
   color: ${blackTitle};
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const Info = styled.div`
@@ -30,6 +32,9 @@ const Info = styled.div`
 
 const Author = styled.span`
   font-size: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
 const Time = styled.span`
@@ -39,10 +44,13 @@ const Time = styled.span`
 
 const Content = styled.main`
   white-space: pre-wrap;
+  word-break: break-word;
   margin-bottom: 4rem;
   color: ${blackDefault};
   font-size: 1.1rem;
 `
+
+const TITLE_MAX_LENGTH = 49
 
 const PostPage = ({ setIsLoading }) => {
   const { id } = useParams()
@@ -54,7 +62,7 @@ const PostPage = ({ setIsLoading }) => {
     getPost(id).then((data) => {
       setPost(data)
     })
-  }, [id])
+  }, [id, setIsLoading])
 
   useEffect(() => {
     if (!post) return
@@ -62,14 +70,22 @@ const PostPage = ({ setIsLoading }) => {
       setUser(data)
     })
     setIsLoading(false)
-  }, [post])
+  }, [post, setIsLoading])
+
+  const renderTitle = (title) => {
+    if (title.length > TITLE_MAX_LENGTH) {
+      const newTitle = title.slice(0, TITLE_MAX_LENGTH).concat('...')
+      return <Title>{newTitle}</Title>
+    }
+    return <Title>{title}</Title>
+  }
 
   return (
     <>
       {post && user && <PostContainer>
-          <Title>{post.title}</Title>
+          {renderTitle(post.title)}
           <Info>
-            <Author>{user && user.nickname}</Author>
+            <Author>{user.nickname}</Author>
             <Time>{moment(post.createdAt).format('YYYY年MM月DD日')}</Time>
           </Info>
           <Content>{post.body}</Content>

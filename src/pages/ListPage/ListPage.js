@@ -32,7 +32,7 @@ const ListPage = ({ setIsLoading }) => {
     getPosts().then((posts) => {
       setLastPage(Math.ceil(posts.length / 5))
     })
-  }, [])
+  }, [setIsLoading])
 
   useEffect(() => {
     setPaginationIsLoading(true)
@@ -41,7 +41,7 @@ const ListPage = ({ setIsLoading }) => {
       setIsLoading(false)
       setPaginationIsLoading(false)
     })
-  }, [page])
+  }, [page, setIsLoading])
 
   return (
     <ListPageContainer>

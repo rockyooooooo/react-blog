@@ -37,7 +37,7 @@ const HomePage = ({ setIsLoading }) => {
       setPosts(posts)
       setIsLoading(false)
     })
-  }, [])
+  }, [setIsLoading])
 
   useEffect(() => {
     const yearsArray = []
