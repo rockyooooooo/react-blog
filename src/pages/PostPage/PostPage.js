@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -57,20 +57,18 @@ const PostPage = ({ setIsLoading }) => {
   const [post, setPost] = useState(null)
   const [user, setUser] = useState(null)
 
-  useLayoutEffect(() => {
+  const asyncDoEffects = useCallback(async (id) => {
     setIsLoading(true)
-    getPost(id).then((data) => {
-      setPost(data)
-    })
-  }, [id, setIsLoading])
-
-  useEffect(() => {
-    if (!post) return
-    getUser(post.userId).then((data) => {
-      setUser(data)
-    })
+    const post = await getPost(id)
+    setPost(post)
+    const user = await getUser(post.userId)
+    setUser(user)
     setIsLoading(false)
-  }, [post, setIsLoading])
+  }, [setIsLoading])
+
+  useLayoutEffect(() => {
+    asyncDoEffects(id)
+  }, [id, asyncDoEffects])
 
   const renderTitle = (title) => {
     if (title.length > TITLE_MAX_LENGTH) {
@@ -82,7 +80,7 @@ const PostPage = ({ setIsLoading }) => {
 
   return (
     <>
-      {post && user && <PostContainer>
+      {user && <PostContainer>
           {renderTitle(post.title)}
           <Info>
             <Author>{user.nickname}</Author>
