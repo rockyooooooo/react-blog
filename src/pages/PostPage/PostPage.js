@@ -1,14 +1,14 @@
 import moment from 'moment'
-import { useLayoutEffect, useState, useCallback } from 'react'
+import { useLayoutEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import { blackDefault, blackTitle } from '../../constants'
-import { getPost, getUser } from '../../WebAPI'
+import { getPost } from '../../redux/reducers/postReducer'
 
 const PostContainer = styled.div`
   margin: 0 auto;
-  
+
   @media screen and (min-width: 1024px) {
     width: 50rem;
   }
@@ -52,23 +52,15 @@ const Content = styled.main`
 
 const TITLE_MAX_LENGTH = 49
 
-const PostPage = ({ setIsLoading }) => {
+const PostPage = () => {
   const { id } = useParams()
-  const [post, setPost] = useState(null)
-  const [user, setUser] = useState(null)
-
-  const asyncDoEffects = useCallback(async (id) => {
-    setIsLoading(true)
-    const post = await getPost(id)
-    setPost(post)
-    const user = await getUser(post.userId)
-    setUser(user)
-    setIsLoading(false)
-  }, [setIsLoading])
+  const dispatch = useDispatch()
+  const post = useSelector((store) => store.posts.post)
+  const author = useSelector((store) => store.posts.author)
 
   useLayoutEffect(() => {
-    asyncDoEffects(id)
-  }, [id, asyncDoEffects])
+    dispatch(getPost(id))
+  }, [id, dispatch])
 
   const renderTitle = (title) => {
     if (title.length > TITLE_MAX_LENGTH) {
@@ -80,20 +72,18 @@ const PostPage = ({ setIsLoading }) => {
 
   return (
     <>
-      {user && <PostContainer>
+      {post.title && (
+        <PostContainer>
           {renderTitle(post.title)}
           <Info>
-            <Author>{user.nickname}</Author>
+            <Author>{author.nickname}</Author>
             <Time>{moment(post.createdAt).format('YYYY年MM月DD日')}</Time>
           </Info>
           <Content>{post.body}</Content>
-      </PostContainer>}
+        </PostContainer>
+      )}
     </>
   )
-}
-
-PostPage.propTypes = {
-  setIsLoading: PropTypes.func
 }
 
 export default PostPage

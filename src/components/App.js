@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {
-  HashRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 import Header from './Header'
 import Footer from './Footer'
 import HomePage from '../pages/HomePage'
@@ -20,7 +18,7 @@ import AboutPage from '../pages/AboutPage'
 import LoadingPage from '../pages/LoadingPage'
 
 const Root = styled.div`
- padding-top: 53px;
+  padding-top: 53px;
 `
 
 const Container = styled.div`
@@ -34,8 +32,8 @@ const Container = styled.div`
 
 function App() {
   const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
   const [isUserSet, setIsUserSet] = useState(false)
+  const isLoading = useSelector((store) => store.posts.isLoading)
 
   useEffect(() => {
     const token = getAuthToken()
@@ -64,10 +62,10 @@ function App() {
           <Container>
             <Switch>
               <Route exact path="/">
-                <HomePage setIsLoading={setIsLoading} />
+                <HomePage />
               </Route>
               <Route path="/list">
-                <ListPage setIsLoading={setIsLoading} />
+                <ListPage />
               </Route>
               <Route path="/new">
                 <NewPostPage />
@@ -76,13 +74,13 @@ function App() {
                 <AboutPage />
               </Route>
               <Route path="/login">
-                <LoginPage setIsLoading={setIsLoading} />
+                <LoginPage />
               </Route>
               <Route path="/register">
-                <RegisterPage setIsLoading={setIsLoading} />
+                <RegisterPage />
               </Route>
               <Route path="/posts/:id">
-                <PostPage setIsLoading={setIsLoading} />
+                <PostPage />
               </Route>
             </Switch>
           </Container>
@@ -90,7 +88,7 @@ function App() {
         </Router>
       </Root>
     </AuthContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App

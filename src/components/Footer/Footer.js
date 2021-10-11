@@ -8,7 +8,7 @@ const FooterContainer = styled.footer`
   padding: 2rem 1rem 0;
   margin: 5rem auto;
   font-size: 0.9rem;
-  
+
   @media screen and (min-width: 1024px) {
     width: 50rem;
   }
